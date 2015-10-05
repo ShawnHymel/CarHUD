@@ -36,18 +36,19 @@
 
 
 //This is the combined array that contains all the segment configurations for many different characters and symbols
+// ***SRH: Numbers modified to display correctly as a reflection
 const uint8_t characterArray[] PROGMEM = {
 //  ABCDEFG  Segments
   0b1111110, // 0
-  0b0110000, // 1
-  0b1101101, // 2
-  0b1111001, // 3
-  0b0110011, // 4
-  0b1011011, // 5
-  0b1011111, // 6
-  0b1110000, // 7
+  0b0000110, // 1
+  0b1011011, // 2
+  0b1001111, // 3
+  0b0100111, // 4
+  0b1101101, // 5
+  0b1111101, // 6
+  0b1000110, // 7
   0b1111111, // 8
-  0b1111011, // 9
+  0b1101111, // 9
   0b1110111, // 10  "A"
   0b0011111, // 11  "B"
   0b1001110, // 12  "C"

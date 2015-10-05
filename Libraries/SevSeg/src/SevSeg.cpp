@@ -212,7 +212,9 @@ void SevSeg::DisplayString(char* toDisplay, byte DecAposColon)
 		//This could be cleaned up a bit but it works
 		//displayCharacter(toDisplay[digit-1]); //Now display this digit
 		// displayArray (defined in SevSeg.h) decides which segments are turned on for each number or symbol
-		char characterToDisplay = toDisplay[digit-1];
+		// ***SRH: Flip digits so that they appear correctly in a mirror
+        char characterToDisplay = toDisplay[numberOfDigits - digit];
+        //char characterToDisplay = toDisplay[digit-1];
 		if (characterToDisplay & 0x80)	// bit 7 enables bit-per-segment control
 		{	// Each bit of characterToDisplay turns on a single segment (from A-to-G)
 			if (characterToDisplay & 0x01) digitalWrite(segmentA, SegOn);
