@@ -11,10 +11,6 @@
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
  *
- * Modified by Shawn Hymel @ SparkFun Electronics
- * October 5, 2015
- * Removed "WConstants.h" import and added <Arduino.h>
- *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -32,7 +28,15 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
-#include <Arduino.h>
+
+#if ARDUINO>=100
+#include <Arduino.h> // Arduino 1.0
+#else
+#include <Wprogram.h> // Arduino 0022
+#endif
+#include <stdint.h>
+#include <avr/pgmspace.h>
+
 #include "global.h"
 #include "mcp2515.h"
 #include "mcp2515_defs.h"
