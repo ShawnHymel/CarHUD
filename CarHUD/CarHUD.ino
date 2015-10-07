@@ -91,26 +91,12 @@ void loop() {
   
   // Read RPM
   if ( Canbus.ecu_req(ENGINE_RPM, buf) == 1 ) {
-    g_len = strlen(buf);
-    if ( g_len > 4 ) {
-      g_len = 4;
-    }
-    rpm = 0;
-    for ( g_i = 0; g_i < g_len; g_i++ ) {
-      rpm += (buf[g_i] - '0') * pow(10, (g_len - 1 - g_i));
-    }
+    rpm = bufToNum();
   }
   
   // Read MPH
   if ( Canbus.ecu_req(VEHICLE_SPEED, buf) == 1 ) {
-    g_len = strlen(buf);
-    if ( g_len > 3 ) {
-      g_len = 3;
-    }
-    rpm = 0;
-    for ( g_i = 0; g_i < g_len; g_i++ ) {
-      rpm += (buf[g_i] - '0') * pow(10, (g_len - 1 - g_i));
-    }
+    mph = bufToNum();
   }
   
   // Update 7-segment and LED bar
@@ -177,6 +163,32 @@ void lightEmUp(uint32_t val) {
   } else {
     digitalWrite(LED_7, HIGH);
   }
+}
+
+// Extract integer from char buffer
+uint32_t bufToNum() {
+  uint32_t val = 0;
+  uint8_t len = strlen(buf);
+  for ( uint8_t i = 0; i < len; i++ ) {
+    if ( buf[i] == '0' || buf[i] == '1' || buf[i] == '2' ||
+         buf[i] == '3' || buf[i] == '4' || buf[i] == '5' ||
+         buf[i] == '6' || buf[i] == '7' || buf[i] == '8' ||
+         buf[i] == '9' ) {
+      val += (buf[i] - '0') * power(10, (len - 1 - i));
+    } else {
+      break;
+    }
+  }
+  return val;
+}
+
+// Power
+uint32_t power(uint32_t base, uint32_t p) {
+  uint32_t val = 1;
+  for ( uint32_t i = 0; i < p; i++ ) {
+    val *= base;
+  }
+  return val;
 }
 
 // 7-Segment Display Fucntion
