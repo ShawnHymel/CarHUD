@@ -3,7 +3,7 @@
  * Shawn Hymel @ SparkFun Electronics
  * October 6, 2015
  *
- * Uses CAN-BUS Shield to read MPH and RPM. Displays MPH on
+ * Uses CAN-BUS Shield to read speed and RPM. Displays KPH on
  * 7-segment display and RPM on 8 LEDs.
  *
  * License: This code is beerware; if you see me (or any other 
@@ -40,7 +40,7 @@
 
 // Global variables
 char buf[512];
-uint32_t mph;
+uint32_t kph;
 uint32_t rpm;
 uint8_t g_i;
 uint8_t g_len;
@@ -80,8 +80,8 @@ void setup() {
     while(1);
   }
   
-  // Initialize MPH and RPM
-  mph = 0;
+  // Initialize KPH and RPM
+  kph = 0;
   rpm = 0;
   
   delay(1000);
@@ -96,17 +96,17 @@ void loop() {
   
   // Read MPH
   if ( Canbus.ecu_req(VEHICLE_SPEED, buf) == 1 ) {
-    mph = bufToNum();
+    kph = bufToNum();
   }
   
   // Update 7-segment and LED bar
 #if DEBUG
   Serial.print("MPH: ");
-  Serial.print(mph);
+  Serial.print(kph);
   Serial.print(" RPM: ");
   Serial.println(rpm);
 #endif
-  sevSegSend(mph);
+  sevSegSend(kph);
   lightEmUp(rpm);
   
   delay(10);
