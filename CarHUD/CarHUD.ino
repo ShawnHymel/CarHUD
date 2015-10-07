@@ -167,14 +167,31 @@ void lightEmUp(uint32_t val) {
 
 // Extract integer from char buffer
 uint32_t bufToNum() {
+  
   uint32_t val = 0;
-  uint8_t len = strlen(buf);
-  for ( uint8_t i = 0; i < len; i++ ) {
+  uint16_t len = strlen(buf);
+  uint16_t cnt = 0;
+  uint16_t i;
+  
+  // Count length of numbers
+  for ( i = 0; i < len; i++ ) {
     if ( buf[i] == '0' || buf[i] == '1' || buf[i] == '2' ||
          buf[i] == '3' || buf[i] == '4' || buf[i] == '5' ||
          buf[i] == '6' || buf[i] == '7' || buf[i] == '8' ||
          buf[i] == '9' ) {
-      val += (buf[i] - '0') * power(10, (len - 1 - i));
+      cnt++;
+    } else {
+      break;
+    }
+  }
+  
+  // Create number from characters
+  for ( i = 0; i < cnt; i++ ) {
+    if ( buf[i] == '0' || buf[i] == '1' || buf[i] == '2' ||
+         buf[i] == '3' || buf[i] == '4' || buf[i] == '5' ||
+         buf[i] == '6' || buf[i] == '7' || buf[i] == '8' ||
+         buf[i] == '9' ) {
+      val += (buf[i] - '0') * power(10, (cnt - 1 - i));
     } else {
       break;
     }
